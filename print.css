@@ -4,9 +4,11 @@
   }
 }
 
+header{ 
+    text-align: center;
+}
 
 body {
-  color:lightgray;
   border: 2px solid black;
   margin: 0.5in;
   padding: 0.5in;
@@ -25,9 +27,7 @@ h2 {
 h3 {
     color:gray;
 }
-title{
-    color:black;
-}
+
 ul {
     color:black;
 }
