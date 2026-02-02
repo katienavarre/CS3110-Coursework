@@ -1,17 +1,48 @@
+@media screen {
+  body {
+    border: 2px solid black;
+    margin: 2in;
+    padding: 0.5in;
+    font-size: 20pt;
+  }
+  
+  main {
+    display: flex;
+    gap: 20px;
+  }
+  
+  main section {
+    flex: 1;
+  }
+}
+
 @media print {
+  @page {
+    margin: 0.5in;
+    border: 2px solid black;
+  }
+  
   img {
     display: none;
   }
+  
+  body {
+    border: none;
+    margin: 0;
+    padding: 0.5in;
+  }
+  
+  section {
+    page-break-inside: avoid;
+  }
+
+    #skills{
+        padding-top: 0.5in;
+    }
 }
 
 header{ 
     text-align: center;
-}
-
-body {
-  border: 2px solid black;
-  margin: 0.5in;
-  padding: 0.5in;
 }
 
 p {
