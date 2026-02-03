@@ -1,0 +1,44 @@
+@media screen {
+  body {
+    max-width: 90%;
+    border: 2px solid black;
+    margin: 40px auto;
+    padding: 20px;
+    font-size: 20pt;
+    line-height: 1.6;
+  }
+  
+  main {
+    display: flex;
+    gap: 20px;
+  }
+  
+  main section {
+    flex: 1;
+  }
+}
+
+header{ 
+    text-align: center;
+}
+
+p {
+    color:black;
+    margin: 0 0 15px 0;
+}
+h1 {
+    color:black;
+    border-bottom: 3px solid black;
+    padding-bottom: 10px;
+}
+h2 { 
+    color:black;
+}
+h3 {
+    color:gray;
+}
+
+ul {
+    color:black;
+    padding-left: 20px;
+}
