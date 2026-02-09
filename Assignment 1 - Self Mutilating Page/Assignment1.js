@@ -4,7 +4,7 @@ document.getElementById("deleteButton").addEventListener("click", function() {
     intro.remove();
 } );
 
-document.getElementById("addBtn").addEventListener("click", function() {
+document.getElementById("addButton").addEventListener("click", function() {
     let newParagraph = document.createElement("p");
     newParagraph.textContent = "This is a new paragraph added to the page.";
 
@@ -20,7 +20,7 @@ document.getElementById("messageForm").addEventListener("submit", function(event
     without losing any current content.
     */
 
-    let input = document.getElementById("userInput");
+    let input = document.getElementById("UserInput");
     input.setAttribute("placeholder", "Message Submitted: ");
 
     input.value = ""; 
