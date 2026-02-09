@@ -8,27 +8,30 @@
     <link rel="stylesheet" href="Assignment1.css">
 </head>
 
-<main>
-    <div>
-        <body>
+<body>
 
-            <h1>My Interactive Self-Mutilating Page</h1>
-            <p>Click the button below to see the magic happen!</p>
+    <header>
+        <h1>My Interactive Self-Mutilating Page</h1>
+    </header>
+
+    <main>
+        <section>
+            <p id="introText">Click the button below to see the magic happen!</p>
+
             <button id="deleteButton">Remove Intro Text</button>
             <button id="addButton">Add New Message</button>
+        </section>
 
-        </body>
-    </div>
-
-    <div>
-        <form id="messageForm">
-            <label for="UserInput">Enter a new message:</label>
-            <input type="text" id="UserInput" name="UserInput">
-            <button type="submit" id="submitButton">Submit</button>
-        </form>
-    </div>
+        <section>
+            <form id="messageForm">
+                <label for="UserInput">Enter a new message:</label>
+                <input type="text" id="UserInput" name="UserInput">
+                <button type="submit" id="submitButton">Submit</button>
+            </form>
+        </section>
+    </main>
 
     <script src="Assignment1.js"></script>
-</main>
 
+</body>
 </html>
