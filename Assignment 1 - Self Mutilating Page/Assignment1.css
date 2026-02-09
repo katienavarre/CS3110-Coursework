@@ -1,23 +1,28 @@
 body{
     font: Arial;
     margin: 30px;
+    text-align: center;
 }
 
 header{
     margin-bottom: 20px;
+    text-align: center;
 }
 
 h1{
     font-size: 30px;
     color: black;
+    text-align: center;
 }
 
 section{
     margin-bottom: 20px;
+    text-align: center;
 }
 
 #messageArea{
     margin-top: 20px;
     border-top: black solid 1px;
     padding-top: 10px;
+    text-align: center;
 }

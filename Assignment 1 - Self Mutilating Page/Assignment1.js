@@ -21,6 +21,12 @@ document.getElementById("messageForm").addEventListener("submit", function(event
     */
 
     let input = document.getElementById("UserInput");
+
+    let userMessage = document.createElement("p");
+    userMessage.textContent = "User Message: " + input.value;
+
+    document.getElementById("messageArea").appendChild(userMessage);
+
     input.setAttribute("placeholder", "Message Submitted: ");
 
     input.value = ""; 
