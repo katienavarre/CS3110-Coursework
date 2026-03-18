@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Assignment 5 Authenticated and Authorized</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
 
+  <body>
+
+    <!--
+    Admin credentials for grading
+    username: admin
+    password: admin123
+
+    Author credentials
+    username: author
+    password: author123
+    -->
+
+    <div class="container">
+      <h1>Assignment 5 Authenticated and Authorized</h1>
+
+      <h2>Login</h2>
+      <input id="loginUsername" placeholder="Username">
+      <input id="loginPassword" type="password" placeholder="Password">
+      <button onclick="testLogin()">Login</button>
+      <p id="loginStatus"></p>
+
+      <h2>Items</h2>
+      <button onclick="loadItems()">Load Items</button>
+      <div id="items"></div>
+
+      <h2>Add Item</h2>
+      <input id="name" placeholder="Item name">
+      <button onclick="addItem()">Add Item</button>
+
+      <h2>Update Item</h2>
+      <input id="updateId" placeholder="Item ID">
+      <input id="updateName" placeholder="New name">
+      <button onclick="updateItem()">Update Item</button>
+
+      <h2>Delete Item</h2>
+      <input id="deleteId" placeholder="Item ID">
+      <button onclick="deleteItem()">Delete Item</button>
+
+      <h2>Create User (Admin Only)</h2>
+      <input id="newUsername" placeholder="New Username">
+      <input id="newPassword" placeholder="New Password">
+      <select id="role">
+        <option value="author">Author</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button onclick="createUser()">Create User</button>
+
+    </div>
+
+    <script src="script.js"></script>
+
+  </body>
+</html>
