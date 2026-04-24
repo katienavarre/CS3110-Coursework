@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuietZone - Noise Monitor</title>
+    <!-- got this font from google fonts, looks pretty clean -->
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- header / title bar -->
+<div class="masthead">
+    <div class="masthead-left">
+        <h1>QuietZone</h1>
+        <div class="subtitle">Ambient Noise Monitor & Study Session Tracker</div>
+    </div>
+    <!-- show mic/notification permission status up here -->
+    <div class="masthead-right">
+        <div id="permMicStatus">🎙  Mic: --</div>
+        <div id="permNotiStatus">🔔 Notifications: --</div>
+    </div>
+</div>
+
+<!-- main content area, two column layout -->
+<div class="layout">
+
+    <!-- left: the noise meter stuff -->
+    <div>
+
+        <!-- this shows up if the user denies microphone permission -->
+        <div class="denied-card" id="deniedCard">
+            <strong>⚠ Microphone access denied</strong>
+            QuietZone needs microphone permission to measure noise levels. Without it the meter won't work.
+            The session timer and notifications still work though! To fix this, allow mic access in your
+            browser settings and reload the page.
+        </div>
+
+        <!-- main meter card -->
+        <div class="card" id="meterCard">
+            <div class="card-label">Real-Time Noise Level</div>
+
+            <!-- shown before user clicks start -->
+            <div id="idleMsg" class="idle-msg">
+                <span class="big">◌</span>
+                Press <strong>Start Monitoring</strong> to begin measuring ambient noise.
+            </div>
+
+            <!-- hidden until monitoring starts -->
+            <div id="liveView" style="display: none;">
+
+                <!-- big dB number display -->
+                <div class="db-display">
+                    <div class="db-number" id="dbNumber">--</div>
+                    <div class="db-unit">dB</div>
+                    <div class="db-label">Sound Pressure Level</div>
+                    <div>
+                        <span class="zone-badge" id="zoneBadge">--</span>
+                    </div>
+                </div>
+
+                <!-- min/avg/max stats -->
+                <div class="stats-row">
+                    <div class="mini-stat">
+                        <div class="msv" id="statMin">--</div>
+                        <div class="msl">Min dB</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="msv" id="statAvg">--</div>
+                        <div class="msl">Avg dB</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="msv" id="statMax">--</div>
+                        <div class="msl">Max dB</div>
+                    </div>
+                </div>
+
+                <!-- level bars for each noise zone -->
+                <div class="meter-wrap">
+                    <div class="meter-row">
+                        <span>Quiet</span>
+                        <div class="bar-track"><div class="bar-fill zone-quiet" id="bar0"></div></div>
+                        <span>≤40</span>
+                    </div>
+                    <div class="meter-row">
+                        <span>Moderate</span>
+                        <div class="bar-track"><div class="bar-fill zone-moderate" id="bar1"></div></div>
+                        <span>≤60</span>
+                    </div>
+                    <div class="meter-row">
+                        <span>Loud</span>
+                        <div class="bar-track"><div class="bar-fill zone-loud" id="bar2"></div></div>
+                        <span>≤75</span>
+                    </div>
+                    <div class="meter-row">
+                        <span>Very loud</span>
+                        <div class="bar-track"><div class="bar-fill zone-very-loud" id="bar3"></div></div>
+                        <span>&gt;75</span>
+                    </div>
+                </div>
+
+                <!-- live waveform from the mic -->
+                <canvas id="waveform" width="800" height="112"></canvas>
+
+                <!-- scrolling history of the last 60 seconds -->
+                <div class="sparkline-wrap">
+                    <div class="card-label" style="border: none; margin-bottom: 8px;">Last 60 seconds history</div>
+                    <canvas id="sparkline" width="800" height="144"></canvas>
+                </div>
+
+            </div><!-- end liveView -->
+
+            <div class="btn-row" style="margin-top: 20px;">
+                <button class="btn primary" id="btnStart">Start Monitoring</button>
+                <button class="btn danger" id="btnStopMic" disabled>Stop</button>
+            </div>
+        </div><!-- end meterCard -->
+
+    </div><!-- end left col -->
+
+    <!-- right: timer and notification stuff -->
+    <div class="right-col">
+
+        <!-- pomodoro-style session timer -->
+        <div class="card">
+            <div class="card-label">Study Session</div>
+            <div class="timer-display">
+                <div class="timer-clock" id="timerDisplay">00:00</div>
+                <div class="timer-label" id="timerLabel">Ready</div>
+            </div>
+
+            <!-- SVG ring progress indicator, rotated so it fills clockwise -->
+            <div class="progress-ring-wrap">
+                <svg class="progress-ring" width="80" height="80" viewBox="0 0 80 80">
+                    <circle class="ring-bg" cx="40" cy="40" r="34"/>
+                    <circle class="ring-fg" id="ringFg" cx="40" cy="40" r="34"
+                        stroke-dasharray="213.6"
+                        stroke-dashoffset="213.6"/>
+                </svg>
+            </div>
+
+            <!-- quick presets for common study lengths -->
+            <div class="session-presets">
+                <button class="preset-btn active" data-minutes="25">25 min</button>
+                <button class="preset-btn" data-minutes="45">45 min</button>
+                <button class="preset-btn" data-minutes="60">60 min</button>
+                <button class="preset-btn" data-minutes="90">90 min</button>
+            </div>
+
+            <div class="btn-row" style="margin-top: 14px;">
+                <button class="btn primary" id="btnSession">Start Session</button>
+                <button class="btn" id="btnResetSession" disabled>Reset</button>
+            </div>
+        </div>
+
+        <!-- notification settings card -->
+        <div class="card">
+            <div class="card-label">Noise Alert Threshold</div>
+            <p style="font-size: 0.68rem; color: var(--muted); line-height: 1.8; margin-bottom: 10px;">
+                Get a notification when ambient noise stays above this level for 5+ seconds.
+            </p>
+            <div class="threshold-row">
+                <input type="range" id="thresholdSlider" min="30" max="85" value="55" step="1">
+                <span class="threshold-val" id="thresholdVal">55 dB</span>
+            </div>
+            <div style="margin-top: 6px; font-size: 0.62rem; color: var(--muted); letter-spacing: 1px;">
+                Library quiet ≈ 40 dB &nbsp;·&nbsp; Conversation ≈ 60 dB
+            </div>
+            <div style="margin-top: 14px;">
+                <button class="btn" id="btnEnableNotif">Enable Notifications</button>
+            </div>
+        </div>
+
+        <!-- log of all alerts that have fired -->
+        <div class="card">
+            <div class="card-label">Alert Log</div>
+            <div id="alertLogWrap">
+                <div class="empty-log" id="emptyLog">No alerts triggered yet.</div>
+                <ul class="alert-log" id="alertLog" style="display: none;"></ul>
+            </div>
+            <button class="btn" style="margin-top: 12px; font-size: 0.65rem;" id="btnTestNotif">Send Test Notification</button>
+        </div>
+
+    </div><!-- end right col -->
+
+</div><!-- end layout -->
+
+<script src="script.js"></script>
+</body>
+</html>
