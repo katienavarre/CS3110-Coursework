@@ -1,0 +1,290 @@
+/* styles for quietzone - noise monitor thing */
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+/* header at the top */
+.masthead {
+    background: #3a7d5e;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.masthead-left h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.masthead-left .subtitle {
+    font-size: 0.8rem;
+    margin-top: 3px;
+    opacity: 0.85;
+}
+
+.masthead-right {
+    font-size: 0.75rem;
+    text-align: right;
+    line-height: 1.7;
+}
+
+/* main 2 column layout */
+.layout {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 15px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+}
+
+@media (max-width: 700px) {
+    .layout { grid-template-columns: 1fr; }
+}
+
+/* cards */
+.card {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.card-label {
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+/* big db number */
+.db-display {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.db-number {
+    font-size: 5rem;
+    font-weight: bold;
+    color: #3a7d5e;
+    line-height: 1;
+}
+
+.db-unit {
+    font-size: 1rem;
+    color: #888;
+}
+
+.db-label {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 4px;
+}
+
+/* zone badge */
+.zone-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.zone-quiet     { background: #d4edda; color: #155724; }
+.zone-moderate  { background: #fff3cd; color: #856404; }
+.zone-loud      { background: #ffe0cc; color: #8a3100; }
+.zone-very-loud { background: #f8d7da; color: #721c24; }
+
+/* level bars */
+.meter-wrap {
+    margin-top: 15px;
+}
+
+.meter-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.meter-row span { width: 50px; }
+
+.bar-track {
+    flex: 1;
+    height: 12px;
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 0.1s;
+}
+
+.bar-fill.zone-quiet     { background: #3a7d5e; }
+.bar-fill.zone-moderate  { background: #e9a319; }
+.bar-fill.zone-loud      { background: #c0622b; }
+.bar-fill.zone-very-loud { background: #c0392b; }
+
+canvas#waveform {
+    width: 100%;
+    height: 60px;
+    border: 1px solid #ccc;
+    margin-top: 12px;
+    display: block;
+    background: #fafafa;
+}
+
+.sparkline-wrap { margin-top: 14px; }
+
+canvas#sparkline {
+    width: 100%;
+    height: 80px;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    display: block;
+}
+
+/* stats */
+.stats-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.mini-stat {
+    flex: 1;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.mini-stat .msv { font-size: 1.4rem; font-weight: bold; }
+.mini-stat .msl { font-size: 0.65rem; color: #888; text-transform: uppercase; margin-top: 2px; }
+
+/* right column */
+.right-col { display: flex; flex-direction: column; gap: 0; }
+
+/* buttons - just using default browser style basically */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    background: #e0e0e0;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 0;
+}
+
+.btn:hover { background: #d0d0d0; }
+
+.btn.primary {
+    background: #3a7d5e;
+    color: white;
+    border-color: #2d6149;
+}
+
+.btn.primary:hover { background: #2d6149; }
+
+.btn.danger {
+    background: #e74c3c;
+    color: white;
+    border-color: #c0392b;
+}
+
+.btn.danger:hover { background: #c0392b; }
+
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-row { display: flex; gap: 8px; margin-top: 10px; }
+.btn-row .btn { flex: 1; }
+
+/* timer */
+.timer-display { text-align: center; padding: 10px 0; }
+.timer-clock { font-size: 3rem; font-weight: bold; color: #333; }
+.timer-label { font-size: 0.75rem; color: #888; margin-top: 4px; }
+
+.session-presets { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+
+.preset-btn {
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    background: #f0f0f0;
+    cursor: pointer;
+}
+
+.preset-btn:hover { background: #ddd; }
+.preset-btn.active { background: #3a7d5e; color: white; border-color: #2d6149; }
+
+/* svg ring */
+.progress-ring-wrap { display: flex; justify-content: center; margin: 8px 0; }
+svg.progress-ring { transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: #ddd; stroke-width: 4; }
+.ring-fg { fill: none; stroke: #3a7d5e; stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
+
+/* threshold */
+.threshold-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.threshold-row input[type=range] { flex: 1; }
+.threshold-val { font-size: 0.85rem; color: #c0622b; font-weight: bold; min-width: 44px; }
+
+/* alert log */
+.alert-log { list-style: none; font-size: 0.72rem; color: #555; max-height: 150px; overflow-y: auto; padding: 0; }
+.alert-log li { border-bottom: 1px solid #eee; padding: 4px 0; display: flex; justify-content: space-between; }
+.alert-log li .al-time { color: #aaa; }
+.empty-log { font-size: 0.75rem; color: #aaa; font-style: italic; }
+
+/* permission denied */
+.denied-card {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 3px;
+    padding: 12px;
+    font-size: 0.8rem;
+    color: #856404;
+    display: none;
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.denied-card strong { display: block; margin-bottom: 4px; }
+
+/* idle message */
+.idle-msg {
+    text-align: center;
+    padding: 30px 0;
+    color: #aaa;
+    font-size: 0.85rem;
+    line-height: 2;
+}
+
+.idle-msg .big { font-size: 2rem; display: block; margin-bottom: 8px; }
+
+/* alert flash */
+@keyframes flashRed {
+    0%, 100% { background: white; }
+    50%       { background: #f8d7da; }
+}
+.alert-flash { animation: flashRed 0.6s ease 3; }
